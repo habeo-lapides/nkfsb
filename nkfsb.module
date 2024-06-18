@@ -1,13 +1,13 @@
 <?php
 
 /**
- * @file
- * Implements hook_theme()
- */
+* @file
+* Implements hook_theme() for Drupal 10.
+*/
 
 /**
- *
- */
+* Implements hook_theme().
+*/
 function nkfsb_theme() {
   return [
     'nkfsb_block' => [

@@ -6,6 +6,7 @@ use Drupal\Core\Block\BlockBase;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\node\NodeInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Drupal\Core\Routing\CurrentRouteMatch;
 
 /**
  * Provides a custom block for social sharing buttons.
@@ -18,11 +19,46 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 class NKFSBBlock extends BlockBase implements ContainerFactoryPluginInterface {
 
   /**
+   * The current route match.
+   *
+   * @var \Drupal\Core\Routing\CurrentRouteMatch
+   */
+  protected $currentRouteMatch;
+
+  /**
+   * Constructs a new NKFSBBlock instance.
+   *
+   * @param array $configuration
+   *   A configuration array containing information about the plugin instance.
+   * @param string $plugin_id
+   *   The plugin_id for the plugin instance.
+   * @param mixed $plugin_definition
+   *   The plugin implementation definition.
+   * @param \Drupal\Core\Routing\CurrentRouteMatch $current_route_match
+   *   The current route match.
+   */
+  public function __construct(array $configuration, $plugin_id, $plugin_definition, CurrentRouteMatch $current_route_match) {
+    parent::__construct($configuration, $plugin_id, $plugin_definition);
+    $this->currentRouteMatch = $current_route_match;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition) {
+    return new static(
+      $configuration,
+      $plugin_id,
+      $plugin_definition,
+      $container->get('current_route_match')
+    );
+  }
+
+  /**
    * {@inheritdoc}
    */
   public function build() {
-
-    $node = \Drupal::routeMatch()->getParameter('node');
+    $node = $this->currentRouteMatch->getParameter('node');
 
     // Build action array for displayable icons.
     if ($node instanceof NodeInterface) {
@@ -59,21 +95,9 @@ class NKFSBBlock extends BlockBase implements ContainerFactoryPluginInterface {
         '#attached' => [
           'library' => [
             // Add your library here if needed.
-            ],
+          ],
         ],
       ];
     }
   }
-
-  /**
-   * {@inheritdoc}
-   */
-  public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition) {
-    return new static(
-      $configuration,
-      $plugin_id,
-      $plugin_definition
-    );
-  }
-
 }
