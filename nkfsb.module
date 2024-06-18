@@ -1,0 +1,22 @@
+<?php
+
+/**
+ * @file
+ * Implements hook_theme()
+ */
+
+/**
+ *
+ */
+function nkfsb_theme() {
+  return [
+    'nkfsb_block' => [
+      'variables' => [
+        'content' => NULL,
+        'service' => NULL,
+        'items' => NULL,
+      ],
+      'template' => 'nkfsb-block',
+    ],
+  ];
+}

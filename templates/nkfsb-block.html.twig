@@ -1,0 +1,76 @@
+<div class="social-sharing-buttons">
+
+    {# Print share button #}
+    {% if service.print == 1 %}
+        {% if items.print_css %}
+            {% set href = "#" %}
+            {% set rel = items.print_css %}
+            {{ attach_library('better_social_sharing_buttons/print-css') }}
+        {% else %}
+            {% set href = "javascript:window.print()" %}
+        {% endif %}
+        <a href="{{ href }}" rel="{{ rel }}" class="bssb-printlink button--nkfsocial" title="Print" alt="print">
+
+                <i class="icon-print icon-color"></i>
+
+            <span>{{ 'Print'|t }}</span>
+        </a>
+    {% endif %}
+
+    {# Email share button #}
+    {% if service.email == 1 %}
+        <a href="mailto:?subject={{ items.title }}&amp;body={{ items.page_url }}" title="{{ 'Share to'|t }} Email"
+           alt="share via email" aria-label="{{ 'Share to'|t }} Email"
+           class="social-sharing-buttons__button share-email button--nkfsocial" target="_blank" rel="noopener">
+                <i class="icon-mail-alt icon-color" ></i>
+            <span>{{ 'Email'|t }}</span> 
+        </a>
+    {% endif %}
+
+    {# Facebook share button #}
+    {% if service.facebook == 1 %}
+
+        <a href="https://www.facebook.com/sharer/sharer.php?u={{ items.page_url }}&amp;title={{ items.title }}"
+           alt="share to facebook" target="_blank" title="{{ 'Share to'|t }} Facebook"
+           aria-label="{{ 'Share to'|t }} Facebook"
+           class="social-sharing-buttons__button share-facebook button--nkfsocial" rel="noopener">
+                <i class="icon-facebook icon-color"></i>
+            <span>{{ 'Share'|t }}</span>
+        </a>
+    {% endif %}
+
+    {# X share button #}
+    {% if service.tweet == 1 %}
+        <a href="https://twitter.com/intent/tweet?text={{ items.tweet }}+{{ items.field_tweet_hashtag }}" target="_blank"
+           title="{{ 'Share to'|t }} X" alt="Share to X" aria-label="{{ 'Share to'|t }} X"
+           class="social-sharing-buttons__button share-x button--nkfsocial" rel="noopener">
+                <i class="icon-twitter icon-color"></i>
+            <span> {{ 'Share'|t }}</span>
+        </a>
+    {% endif %}
+
+
+    {# Pinterest share button #}
+    {% if service.pinterest == 1 %}
+        <a href="https://pinterest.com/pin/create/link/?url={{ items.page_url }}&amp;description={{ items.title }}"
+           target="_blank" title="{{ 'Share to'|t }} Pinterest" alt="Share to Pinterest"
+           aria-label="{{ 'Share to'|t }} Pinterest"
+           class="social-sharing-buttons__button share-pinterest button--nkfsocial" rel="noopener">
+                <i class="icon-pinterest icon-color"></i>
+            <span> {{ 'Pin'|t }}</span>
+        </a>
+    {% endif %}
+
+    {# Linkedin share button #}
+    {% if service.linkedin == 1 %}
+        <a href="https://www.linkedin.com/sharing/share-offsite/?url={{ items.page_url }}" target="_blank"
+           title="{{ 'Share to'|t }} Linkedin" aria-label="{{ 'Share to'|t }} Linkedin" alt="Share to Linkedin"
+           class="social-sharing-buttons__button share-linkedin button--nkfsocial" rel="noopener">
+                <i class="icon-linkedin icon-color"></i>
+            <span>{{ 'Share'|t }}</span>
+        </a>
+    {% endif %}
+
+
+
+</div>
